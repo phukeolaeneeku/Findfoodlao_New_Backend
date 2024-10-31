@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/chat.css' %}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/chat_list.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="chat list">
+    <div class="menu_title">Chatting</div>
+    <div class="error mt20">채팅 내용은 12시간만 보관됩니다</div>
+    <div class="chat_list mt50" >
+        <ul id="chat_list">
+        </ul>
+    </div>
+    <div class="chat_list empty" id="empty" style="display: none;">
+        <div class="ment">
+            <img src="{% static 'assets/img/icon/empty.svg' %}" alt=""/>지난 채팅 내역이
+            없어요
+        </div>
+    </div>
+    <div class="nav">
+        <ul class="grid g4">
+            <li onclick="goodsList()">쇼핑</li>
+            <li class="on" onclick="chatList()">채팅</li>
+            <li onclick="orderList()">즐겨찾기</li>
+            <li onclick="morePage()">더보기</li>
+        </ul>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script type="text/javascript">
+    const staticPath = '{% static "assets/img/icon/" %}';
+</script>
+</body>
+</html>

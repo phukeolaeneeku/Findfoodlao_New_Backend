@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/user.css' %}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/user.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="user login">
+    <div class="title">
+        로그인
+        <small>서비스 이용을 위해 로그인을 진행해 주세요!</small>
+    </div>
+    <div class="form">
+        <div class="input_wrap pr">
+            <input type="email" class="ty01" autocomplete='off' placeholder="이메일" id="email"/>
+            <label for="email" class="ty01">Email</label>
+        </div>
+        <div class="input_wrap pr mt30">
+            <input type="password" autocomplete='off' class="ty01" placeholder="비밀번호" id='password'/>
+            <label for="" class="ty01">Password</label>
+        </div>
+        <div id="error_msg" class="error mt20" style="display: none;">
+        </div>
+        <div class="find_pw mt30">
+            비밀번호를 잊으셨나요? <a href="/user/find">비밀번호 찾기</a>
+        </div>
+        <button id="loginButton" class="btn mt30" onclick="logIn()">로그인</button>
+        <div class="join mt30">
+            처음이신가요? <a href="/user/signup">회원가입</a>
+        </div>
+        <div class="sns mt50">
+            SNS 계정으로 간편 가입하기
+{#            <a href="{% url 'users:social_login' %}">구글회원가입</a>#}
+            <a onclick="googleUrl()">구글회원가입</a>
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    const inputFields = document.querySelectorAll(".form .ty01");
+    inputFields.forEach(function (inputElement) {
+        inputElement.addEventListener("input", function () {
+            if (inputElement.value !== "") {
+                inputElement.style.backgroundColor = "rgba(255,79,22,0.2)";
+                inputElement.style.border = "none";
+            } else {
+                inputElement.style.backgroundColor = "initial";
+                inputElement.style.border = "1px solid #dddce1";
+            }
+        });
+    });
+</script>
+<script>
+    // 인풋 입력시 버튼 온
+    document.getElementById('email').addEventListener('input', checkInputs);
+    document.getElementById('password').addEventListener('input', checkInputs);
+
+    function checkInputs() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var loginButton = document.getElementById('loginButton');
+
+        if (email && password) {
+            // 이메일과 비밀번호가 모두 입력되었을 경우
+            loginButton.classList.add('on');
+        } else {
+            // 입력되지 않은 필드가 있을 경우
+            loginButton.classList.remove('on');
+        }
+    }
+</script>
+</body>
+</html>

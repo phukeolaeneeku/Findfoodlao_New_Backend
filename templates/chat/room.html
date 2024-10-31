@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/chat.css' %}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="chat view">
+    <div class="top_area">
+        <button class="back" onclick="history.back()">Back</button>
+    </div>
+    <div class="real-time">
+        <div class="ment" id="chat_start_ment">
+        </div>
+        <ul class="mt30" id="chat-log">
+        </ul>
+
+    </div>
+    <div class="send">
+        <input id="chat-message-input" type="text" class="text" placeholder="메시지 보내기"/>
+        <input id="chat-message-submit" type="button" class="button" value="보내기"/>
+    </div>
+    {#    <input id="chat-message-input" type="text" size="100">#}
+    {#    <input  type="button" value="Send">#}
+
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script type="text/javascript">
+    const staticPath = '{% static "assets/img/icon/" %}';
+</script>
+</body>
+</html>

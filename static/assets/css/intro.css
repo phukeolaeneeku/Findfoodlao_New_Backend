@@ -1,0 +1,35 @@
+#wrap.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#wrap.intro .symbol {
+  width: 130px;
+  height: 130px;
+  border-radius: 30px;
+  background: #ff4f16;
+  box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+#wrap.intro .symbol img {
+  width: 80px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#wrap.intro .txt {
+  margin-top: 50px;
+}
+#wrap.intro .txt img {
+  width: 200px;
+}
+#wrap.intro p {
+  color: #b0b0b0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 20px;
+  line-height: 1.5;
+}

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/intro.css' %}" type="text/css"/>
+    <script src="{% static 'js/base.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="intro fade-in-box">
+    <div class="symbol">
+        <img src="{% static 'assets/img/s_logo.svg' %}" alt=""/>
+    </div>
+    <div class="txt">
+        <img src="{% static 'assets/img/t_logo.svg' %}" alt=""/>
+    </div>
+    <p>
+        HUMAN + MASCOT<br/>
+        휴마스콧과 고객들의 만남이 행운으로 이어지도록
+    </p>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    window.onload = async function () {
+        let token = localStorage.getItem('access_token')
+        if (token) {
+            const response = await fetch(`${backend_base_url}/user/check-token`, {
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({"token": token}),
+                method: 'POST',
+            });
+            let response_json = await response.json()
+            if (response_json['result'] === 'success') {
+                setTimeout(function () {
+                    window.location.href = '/store/goods/list';
+                }, 1700);
+            } else {
+                setTimeout(function () {
+                    window.location.href = '/user/signin';
+                }, 1700);
+            }
+        } else {
+            // 3000 밀리초 (3초) 후에 페이지를 newUrl로 리디렉션
+            setTimeout(function () {
+                window.location.href = '/user/signin';
+            }, 1700);
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

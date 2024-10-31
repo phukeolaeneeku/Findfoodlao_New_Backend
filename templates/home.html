@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link
+            rel="stylesheet"
+            href="{% static 'assets/css/shopping.css' %}"
+            type="text/css"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/modal.css' %}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/user.js' %}"></script>
+    <script src="{% static 'js/goods_list.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="shopping list">
+    {#    <div id="user-bar" ></div>#}
+    <button class="admin_btn" id="admin_store_render" style="display: none" onclick="storeSetting()">상점관리</button>
+    <div class="menu_title">Shopping</div>
+    <div class="top_box mt20">
+        <div class="search pr">
+            <input id="search"
+                   type="text"
+                   placeholder="찾으시는 상점 또는 상품을 검색해 보세요"
+            />
+            <div class="search_btn">검색</div>
+        </div>
+        <div id="showButton" class="filter pr">
+            <div id="select" style="display: none">
+                <ul class="grid">
+                    <li id="orderby_create" onclick="orderByCreate()">최신순</li>
+                    <li id="orderby_review" onclick="orderByReview()">리뷰순</li>
+                    <li class="on" id="orderby_price" onclick="orderByPrice()">가격 높은순</li>
+                    <li id="orderby_low_review" onclick="orderByLowReview()">가격 낮은순</li>
+                    <li id="orderby_sell" onclick="orderBySell()">판매량순</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="product_list">
+        <ul class="grid g2" id="goods_list"></ul>
+        <button id="moreButton">
+            <img src="{% static 'assets/img/icon/more.svg' %}" alt=""/>
+        </button>
+    </div>
+    <div class="nav">
+        <ul class="grid g4">
+            <li class="on" onclick="goodsList()">쇼핑</li>
+            <li onclick="chatList()">채팅</li>
+            <li onclick="orderList()">즐겨찾기</li>
+            <li onclick="morePage()">더보기</li>
+        </ul>
+    </div>
+</div>
+<div class="modal_mask">
+    <div class="modal_wrap">
+        <div class="txt_box" id="modal_title">
+            <div class="img">
+                <img src="{% static 'assets/img/icon/user_type02.svg' %}" alt=""/>
+            </div>
+            <div class="txt">
+                <span class="ty01">판매자 등록</span> 하시겠어요?
+            </div>
+            {#                <div class="input">#}
+            {#                    <input type="text" class="ty01" placeholder=""/>#}
+            {#                </div>#}
+        </div>
+        <div class="btn_wrap grid g2">
+            <button class="btn ty02" id="close-modal">아니오</button>
+            <button class="btn ty01" id="save_modal" onclick="changeUserToSeller()">예</button>
+        </div>
+        {#            <div class="close-modal">#}
+        {#                <button id="close-modal">아니요</button>#}
+        {#                <button >예</button>#}
+        {#            </div>#}
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    document
+        .getElementById("showButton")
+        .addEventListener("click", function () {
+            var div = document.getElementById("select");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        });
+</script>
+<script>
+    document.getElementById('search').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            search();
+        }
+    });
+</script>
+<script type="text/javascript">
+    const staticPath = '{% static "assets/img/" %}';
+</script>
+<script>
+    const modal = document.querySelector(".modal_mask");
+    const closeModal = document.getElementById("close-modal");
+    // 모달 숨기기
+    closeModal.onclick = () => {
+        localStorage.removeItem("is_first")
+        modal.style.display = "none";
+
+    };
+</script>
+</body>
+</html>

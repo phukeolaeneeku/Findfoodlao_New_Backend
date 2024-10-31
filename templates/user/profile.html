@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/modal.css' %}" type="text/css"/>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+    <link
+            rel="stylesheet"
+            href="{% static 'assets/css/profile.css' %}"
+            type="text/css"
+    />
+    <style>
+        .cert_btn {
+            border-radius: 30px;
+            background: #eaf2ff;
+            width: 60px;
+            height: 35px;
+            line-height: 35px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            color: #347fff;
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="profile">
+    <div class="top_area">
+        <button class="back" onclick="history.back()">Back</button>
+    </div>
+    <div class="edit">
+        <div id="user_img" class="user_img empty w10">
+            <input id="file" type="file"/>
+            <label for="file"></label>
+        </div>
+        <div id='user_name' class="user_name">꿈나라</div>
+        <div id="user_type" class="user_type modal-button">
+            사용자 <img class="" src="{% static 'assets/img/icon/change.svg' %}" alt=""/>
+        </div>
+        <div class="input_wrap mt30">
+            <input id="email" type="text" class="ty01" placeholder="이메일" readonly/>
+        </div>
+        <div class="input_wrap mt10 pr">
+            <input style="display: none" id='name' type="text" class="ty01" placeholder="상점 이름(필수)" readonly/>
+        </div>
+        <div class="input_wrap mt10 pr">
+            <input style="display: none" id='address' type="text" class="ty01 pdr postcodify_address"
+                   placeholder="주소(필수)" readonly/>
+            <div style="display: none" class="cert_btn" id="postcodify_search_button">검색</div>
+        </div>
+        <div class="input_wrap mt10 pr">
+            <input style="display: none" id='sub_address' type="text" class="ty01 pdr" placeholder="상세 주소(선택)"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input style="display: none" id='phone' type="text" class="ty01" placeholder="연락처(선택)"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input style="display: none"
+                   type="text"
+                   class="ty01"
+                   placeholder="사업자등록번호(선택)"
+                   id='company_number'
+            />
+        </div>
+        <div class="input_wrap mt10">
+            <textarea style="display: none"
+                      name=""
+                      class="ty01"
+                      placeholder="상점 소개(선택/최대 300자)"
+                      maxlength="300"
+                      id='introduce'
+            ></textarea>
+        </div>
+        <div class="input_wrap mt10">
+            <input id="origin_password" type="password" class="ty01" placeholder="현재 비밀번호"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input id="password" type="password" class="ty01" placeholder="새로운 비밀번호"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input id="password2" type="password" class="ty01" placeholder="새로운 비밀번호 확인"/>
+        </div>
+        <button class="btn mt30" id="modify_btn" onclick="changeInfo('basic')">확인</button>
+        <div id="error_msg" class="error mt20" style="display: none;">
+        </div>
+        <div class="nav">
+            <ul class="grid g4">
+                <li onclick="goodsList()">쇼핑</li>
+                <li onclick="chatList()">채팅</li>
+                <li onclick="orderList()">즐겨찾기</li>
+                <li class="on" onclick="morePage()">더보기</li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal_mask">
+        <div class="modal_wrap">
+            <div class="txt_box" id="modal_title">
+                <div class="img">
+                    <img src="{% static 'assets/img/icon/user_type02.svg' %}" alt=""/>
+                </div>
+                <div class="txt">
+                    <span class="ty01">판매자</span>로 전환 하시겠어요?
+                </div>
+                {#                <div class="input">#}
+                {#                    <input type="text" class="ty01" placeholder=""/>#}
+                {#                </div>#}
+            </div>
+            <div class="btn_wrap grid g2">
+                <button class="btn ty02" id="close-modal">아니오</button>
+                <button class="btn ty01" id="save_modal" onclick="changeUserToSeller()">예</button>
+            </div>
+            {#            <div class="close-modal">#}
+            {#                <button id="close-modal">아니요</button>#}
+            {#                <button >예</button>#}
+            {#            </div>#}
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    const token = localStorage.getItem('access_token')  //요청시 필요한 토큰 값
+    if (!token) {
+        alert('로그인 후 이용해주세요.')
+        window.location.href = '/user/signin';
+    }
+</script>
+<script>
+    const closeModal = document.getElementById("close-modal");
+    const modal = document.querySelector(".modal_mask");
+    $('.modal-button').on('click', function () {
+        modal.style.display = "flex"; // 모달 표시
+    })
+
+    // 모달 숨기기
+    closeModal.onclick = () => {
+        modal.style.display = "none";
+
+    };
+</script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script>
+    const inputFields = document.querySelectorAll(".form .ty01");
+    inputFields.forEach(function (inputElement) {
+        inputElement.addEventListener("input", function () {
+            if (inputElement.value !== "") {
+                inputElement.style.backgroundColor = "rgba(255,79,22,0.2)";
+                inputElement.style.border = "none";
+            } else {
+                inputElement.style.backgroundColor = "initial";
+                inputElement.style.border = "1px solid #dddce1";
+            }
+        });
+    });
+    document.getElementById('file').addEventListener('change', function (event) {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var imageUrl = e.target.result;
+                document.querySelector('.user_img').style.backgroundImage = 'url(' + imageUrl + ')';
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>
+<script>
+    $(function () {
+        // 포에시스 주소 api
+        $("#postcodify_search_button").postcodifyPopUp();
+    });
+</script>
+<script>
+    let is_seller = localStorage.getItem('store_id')
+    // 인풋 입력시 버튼 온
+    document.getElementById('origin_password').addEventListener('input', checkInputs);
+    document.getElementById('password').addEventListener('input', checkInputs);
+    document.getElementById('password2').addEventListener('input', checkInputs);
+    document.getElementById('phone').addEventListener('input', checkInputs);
+    document.getElementById('company_number').addEventListener('input', checkInputs);
+    document.getElementById('introduce').addEventListener('input', checkInputs);
+
+    function checkInputs() {
+        var origin_password = document.getElementById('origin_password').value;
+        var password = document.getElementById('password').value;
+        var password2 = document.getElementById('password2').value;
+        var phone = document.getElementById('phone').value;
+        var company_number = document.getElementById('company_number').value;
+        var introduce = document.getElementById('introduce').value;
+        // 주소 팝업이라 이벤트 적용 X
+        var address = document.getElementById('address').value;
+        var loginButton = document.getElementById('modify_btn');
+
+        if (origin_password && password && password2 && !is_seller) {
+            loginButton.classList.add('on');
+        } else {
+            if (is_seller && (origin_password || password || password2 || phone || company_number || introduce)) {
+                loginButton.classList.add('on');
+            } else {
+                // 입력되지 않은 필드가 있을 경우
+                loginButton.classList.remove('on');
+            }
+        }
+
+
+    }
+</script>
+<script>
+    document.getElementById('file').addEventListener('change', function (event) {
+        document.getElementById('user_img').className = 'user_img w10';
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link
+            rel="stylesheet"
+            href="{% static 'assets/css/shopping.css' %}"
+            type="text/css"
+    />
+    {#    <script src="../../../../../PycharmProjects/humascot_back/static/js/goods_detail.js"></script>#}
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/review.js' %}"></script>
+</head>
+
+<body>
+{#리뷰 : <textarea id='review_area' placeholder="'10자 이상 등록해주세요."></textarea>#}
+{#<button onclick="createReview({{ goods_id }})">리뷰 작성</button>#}
+<div id="wrap" class="shopping review">
+    <div class="top_area">
+        <div class="back" onclick="history.back()">뒤로가기</div>
+    </div>
+    <div class="title">
+        리뷰 작성
+        <small>고객님의 상품 후기를 작성해 주세요!</small>
+    </div>
+    <div class="form">
+        <div class="s_title">만족도</div>
+        <div class="input_wrap mt10">
+            <div class="star" id="star">
+                <div class="on" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="s_title mt30">내용 입력</div>
+        <div class="input_wrap mt10">
+          <textarea
+                  name=""
+                  id="review_area"
+                  class="ty01"
+                  placeholder="상품 후기 작성(최소 10자)"
+                  maxlength="300"
+          ></textarea>
+        </div>
+        <div id="error_msg" class="error mt20" style="display: none;">
+        </div>
+        <div class="btn_wrap fixed">
+            <button class="btn" id="review_save_btn">확인</button>
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    const inputFields = document.querySelectorAll(".form .ty01");
+    inputFields.forEach(function (inputElement) {
+        inputElement.addEventListener("input", function () {
+            if (inputElement.value !== "") {
+                inputElement.style.backgroundColor = "rgba(255,79,22,0.2)";
+                inputElement.style.border = "none";
+            } else {
+                inputElement.style.backgroundColor = "initial";
+                inputElement.style.border = "1px solid #dddce1";
+            }
+        });
+    });
+</script>
+<script>
+    let selectedStarRating = 0; // 사용자가 선택한 별점을 저장하는 변수
+
+    document.getElementById('star').addEventListener('click', function (e) {
+        var starWidth = this.offsetWidth;
+        var clickPosition = e.offsetX;
+
+        // 클릭된 위치에 따라 별점 계산 (1부터 5까지)
+        var starRating = Math.ceil((clickPosition / starWidth) * 5);
+
+        // 선택된 별점에 따라 .on 클래스의 너비를 업데이트
+        this.querySelector('.on').style.width = (starRating * 20) + '%';
+
+        // 선택된 별점 저장
+        selectedStarRating = starRating;
+    });
+
+    // 나중에 필요할 때 별점 값을 사용
+    function getSelectedStarRating() {
+        return selectedStarRating;
+    }
+</script>
+</body>
+</html>

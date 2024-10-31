@@ -1,0 +1,76 @@
+#wrap.profile {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 100px;
+}
+#wrap.profile .edit .user_img {
+  margin: 0 auto;
+  position: relative;
+}
+#wrap.profile .edit .user_img:before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 36px;
+  background: #fff url("../img/icon/camera.svg") no-repeat;
+  background-size: 20px;
+  background-position: center;
+  border-radius: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #e7e7e7;
+}
+#wrap.profile .edit .user_img #file {
+  display: none;
+}
+#wrap.profile .edit .user_img #file + label {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#wrap.profile .edit .user_name {
+  margin-top: 25px;
+  font-weight: 600;
+  font-size: 22px;
+  text-align: center;
+}
+#wrap.profile .edit .user_type {
+  color: #868f98;
+  margin-top: 15px;
+  font-weight: 5600;
+  font-size: 18px;
+  text-align: center;
+}
+#wrap.profile .edit .user_type img {
+  vertical-align: middle;
+  margin: -3px 0 0 4px;
+}
+#wrap.profile .edit .input_wrap input.ty01 {
+  border-radius: 30px;
+  border: 1px solid #dddce1;
+  background: #fff;
+  width: 100%;
+  height: 50px;
+  padding: 0 30px;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+#wrap.profile .edit .input_wrap input.ty01:read-only {
+  background: #f2f3f7;
+  border: none;
+}
+#wrap.user .form .input_wrap input.ty01.pdr {
+  padding: 0 120px 0 30px;
+}
+#wrap.user .form .input_wrap input.ty01::placeholder {
+  color: #b3b3b3;
+  font-size: 13px;
+}
+#wrap.user .form .input_wrap input.ty01:focus {
+  border: 1px solid #ff4f16;
+}
+#wrap.user .form .input_wrap input.ty01:focus + label {
+  color: #ff4f16;
+  transition: all 0.3s;
+}

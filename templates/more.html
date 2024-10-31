@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/more.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/modal.css' %}" type="text/css"/>
+    <script src="{% static 'js/base.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="more">
+    <div class="profile_box">
+        <div class="left_box">
+            <div id="user_profile" class="user_img empty w4"></div>
+            <div id="user_name" class="user_name">꿈나라</div>
+        </div>
+        <div class="right_box">
+            <div onclick="userProfile()">프로필 보기</div>
+        </div>
+    </div>
+    <div class="more-menu-list">
+        <ul>
+            <li onclick="term_render()">이용약관</li>
+            <li onclick="policy_render()">개인정보처리방침</li>
+            <li onclick="window.location.href='/user/profile'">비밀번호 변경</li>
+            <li onclick="openModal()">로그아웃</li>
+            <li onclick="openModal('1')">회원탈퇴</li>
+        </ul>
+    </div>
+    <div class="nav">
+        <ul class="grid g4">
+            <li onclick="goodsList()">쇼핑</li>
+            <li onclick="chatList()">채팅</li>
+            <li onclick="orderList()">즐겨찾기</li>
+            <li class="on" onclick="morePage()">더보기</li>
+        </ul>
+    </div>
+</div>
+<div class="modal_mask" style="display: none">
+    <div class="modal_wrap" style="display: none">
+        <div class="inner">
+            <div class="txt_box">
+                <div class="txt" id="modal_text">
+                    접속중인 기기에서 <span>로그 아웃</span>하시겠어요?
+                </div>
+            </div>
+            <div class="btn_wrap grid g2">
+                <button class="btn ty02">아니오</button>
+                <button class="btn ty01" id='modal_btn' onclick="logOut()">예</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    window.onload = async function () {
+        let profile_name = document.getElementById('user_name')
+        let store_name = localStorage.getItem('origin_store_name')
+        let image = localStorage.getItem('image')
+        let user_name = localStorage.getItem('user_name')
+        if (store_name !== 'false') {
+            profile_name.innerText = store_name
+        } else {
+            profile_name.innerText = user_name
+        }
+        if (image !== 'false') {
+            document.getElementById('user_profile').style.backgroundImage = `url(${image})`
+            document.getElementById('user_profile').className = 'user_img w4'
+        }
+    }
+
+    async function logOut() {
+        localStorage.removeItem("access_token")
+        localStorage.removeItem("refresh_token")
+        localStorage.removeItem("user_id")
+        localStorage.removeItem("store_id")
+        localStorage.removeItem("chat_user")
+        localStorage.removeItem("store_name")
+        localStorage.removeItem("origin_store_name")
+        localStorage.removeItem("user_name")
+        localStorage.removeItem("email")
+        localStorage.removeItem("image")
+        localStorage.removeItem("chat_user_name")
+        localStorage.removeItem("chat_image")
+        window.location.href = '/user/signin';
+    };
+
+    async function userDelete() {
+        const token = localStorage.getItem('access_token')  //요청시 필요한 토큰 값
+        const response = await fetch(`${backend_base_url}/user/my-page`, {
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+            },
+            method: 'DELETE',
+        });
+        window.location.href = '/user/signin';
+    };
+
+    function openModal(num = null) {
+        if (num) {
+            document.getElementById('modal_text').innerHTML = '정말 <span class="ty03">탈퇴</span>하시겠어요? <br> 탈퇴 시, 계정정보는 복구되지 않아요'
+            document.getElementById('modal_btn').className = 'btn ty03'
+            document.getElementById('modal_btn').onclick = function () {
+                userDelete()
+            }
+        }
+        document.querySelector('.modal_wrap').style.display = 'block'; // 또는 'flex'
+        document.querySelector('.modal_mask').style.display = 'block'; // 또는 'flex'
+    }
+
+    function closeModal() {
+        document.querySelector('.modal_wrap').style.display = 'none';
+        document.querySelector('.modal_mask').style.display = 'none';
+    }
+
+    document.querySelector('.modal_wrap .btn.ty02').addEventListener('click', closeModal);
+    document.querySelector('.modal_wrap .btn.ty01').addEventListener('click', closeModal);
+
+    function term_render(){
+        window.location.href = '/user/terms'
+    }
+    function policy_render(){
+        window.location.href = '/user/policy'
+    }
+</script>
+</body>
+</html>

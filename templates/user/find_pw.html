@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/user.css' %}" type="text/css"/>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/user.js' %}"></script>
+</head>
+
+<body>
+<div id="wrap" class="user">
+    <div class="top_area">
+        <button class="back" onclick="history.back()">Back</button>
+    </div>
+    <div class="title mt20">
+        비밀번호 찾기
+        <small>이메일 인증 후 비밀번호를 변경해 주세요!</small>
+    </div>
+    <div class="form">
+        <div class="input_wrap pr">
+            <input id='email' type="email" class="ty01" placeholder="이메일"/>
+            <div onclick="sendEmailCode()" id="email_send_btn"  class="cert_btn">인증</div>
+        </div>
+        <div class="input_wrap mt10">
+            <input id="code" type="text" class="ty01" placeholder="인증번호"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input id='password' type="password" class="ty01" placeholder="새로운 비밀번호"/>
+        </div>
+        <div class="input_wrap mt10">
+            <input
+                    type="password"
+                    class="ty01"
+                    placeholder="새로운 비밀번호 확인"
+                    id='password2'
+            />
+        </div>
+        <button id="loginButton" onclick="findPassword()" class="btn mt30">확인</button>
+        <div id="error_msg" class="error mt20" style="display: none;">
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    const inputFields = document.querySelectorAll(".form .ty01");
+    inputFields.forEach(function (inputElement) {
+        inputElement.addEventListener("input", function () {
+            if (inputElement.value !== "") {
+                inputElement.style.backgroundColor = "rgba(255,79,22,0.2)";
+                inputElement.style.border = "none";
+            } else {
+                inputElement.style.backgroundColor = "initial";
+                inputElement.style.border = "1px solid #dddce1";
+            }
+        });
+    });
+</script>
+<script>
+    // 인풋 입력시 버튼 온
+    document.getElementById('email').addEventListener('input', checkInputs);
+    document.getElementById('code').addEventListener('input', checkInputs);
+    document.getElementById('password').addEventListener('input', checkInputs);
+    document.getElementById('password2').addEventListener('input', checkInputs);
+
+    function checkInputs() {
+        var email = document.getElementById('email').value;
+        var code = document.getElementById('code').value;
+        var password = document.getElementById('password').value;
+        var password2 = document.getElementById('password2').value;
+        var loginButton = document.getElementById('loginButton');
+
+        if (email && password && code && password && password2) {
+            // 이메일과 비밀번호가 모두 입력되었을 경우
+            loginButton.classList.add('on');
+        } else {
+            // 입력되지 않은 필드가 있을 경우
+            loginButton.classList.remove('on');
+        }
+    }
+</script>
+</body>
+</html>

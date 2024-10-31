@@ -1,0 +1,76 @@
+.modal_mask {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999999999;
+}
+.modal_wrap {
+  border-radius: 10px;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  overflow: hidden;
+}
+.modal_wrap .txt_box {
+  padding: 20px 20px 40px;
+  text-align: center;
+}
+.modal_wrap .txt_box .img {
+  margin-bottom: 15px;
+}
+.modal_wrap .txt_box .txt {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+}
+.modal_wrap .txt_box .txt span {
+  color: #000;
+  font-weight: 700;
+}
+.modal_wrap .txt_box .txt span.ty01 {
+  color: #347fff;
+}
+.modal_wrap .txt_box .txt span.ty03 {
+  color: #ff2e2e;
+}
+.modal_wrap .txt_box .txt small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #b1b1b1;
+  font-weight: 300;
+}
+.modal_wrap .txt_box .input {
+  margin-top: 20px;
+}
+.modal_wrap .txt_box .input input {
+  border-radius: 30px;
+  border: 1px solid #dddce1;
+  background: #fff;
+  width: 100%;
+  height: 50px;
+  padding: 0 30px;
+  font-size: 15px;
+}
+
+.modal_wrap .btn_wrap button {
+  border-radius: 0;
+  font-size: 16px;
+  height: 50px;
+}
+.modal_wrap .btn_wrap button.ty01 {
+  background: #347fff;
+  color: #fff;
+}
+.modal_wrap .btn_wrap button.ty03 {
+  background: #ff2e2e;
+  color: #fff;
+}

@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/modal.css' %}" type="text/css"/>
+    <link
+            rel="stylesheet"
+            href="{% static 'assets/css/shopping.css' %}"
+            type="text/css"
+    />
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/store_admin.js' %}"></script>
+    <style>
+        #wrap.shopping.admin #tab03 .review_list ul li {
+            display: none;
+        }
+
+        #wrap.shopping.admin #tab03 .review_list ul li:nth-child(-n +8) {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="shopping admin">
+    <div class="top_area">
+        <button class="back" onclick="history.back()">Back</button>
+        <div class="subject">상점관리</div>
+        <div></div>
+    </div>
+    <div class="content mt20">
+        <ul class="tabnav">
+            <li class="tab01">
+                <a href="#tab01" onclick="changeBtn(1)" class="link active">판매 물품</a>
+            </li>
+            <li class="tab02"><a href="#tab02" onclick="changeBtn(2)" class="link">주문 내역</a></li>
+            <li class="tab03"><a id="reivew_link" href="#tab03" onclick="changeBtn(2); loadReviews()" class="link">전체
+                리뷰</a></li>
+        </ul>
+        <div class="tabcontent mt20">
+            <div id="tab01" style="display: block">
+                <div id="error_msg" class="error mt20" style="display: none;">
+                </div>
+                <div class="empty" id="admin_goods_empty" style="display: none">
+                    <img src="{% static 'assets/img/icon/shopping_empty.svg' %}" alt=""/>
+                    등록된 상품이 없어요
+                </div>
+                <div class="registration" onclick="createFirstGoods()" id="admin_goods_empty_2" style="display: none">
+                    <img src="{% static 'assets/img/icon/registration.svg' %}" alt=""/>
+                </div>
+                <div class="product_list product_list_origin ">
+                    <ul class="grid g2" id="admin_goods_list">
+                    </ul>
+                </div>
+            </div>
+            <div id="tab02" style="display: block">
+                <div id="showButton" class="filter pr">
+                    <h5 id="textToShow">전체</h5>
+                    <div id="select" style="display: none">
+                        <ul class="order_goods_select">
+                            <li value="0">전체</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="order_list">
+                    <ul id="order_list"></ul>
+                </div>
+            </div>
+            <div id="tab03" style="display: block">
+                <div id="showButton2" class="filter pr">
+                    <h5 id="textToShow2">전체</h5>
+                    <div id="select2" style="display: none">
+                        <ul class="review_goods_select">
+                            <li value="0">전체</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="review_list">
+                    <ul id="review_list">
+                    </ul>
+                    <button id="moreButton" style="display: none">
+                        <img src="{% static 'assets/img/icon/more.svg' %}" alt=""/>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn_wrap fixed">
+        <button onclick="changeBtn()" id="admin_goods_btn" class="btn"></button>
+    </div>
+</div>
+<div class="modal-wrapper modal_mask">
+    <div class="modal_wrap">
+        <div class="inner">
+            <div class="txt_box">
+                <div id="modal_title" class="txt">
+                </div>
+                <div class="input" id="goods_input">
+                    <input  id="input_goods_info"  type="text" class="ty01" placeholder=""/>
+                </div>
+            </div>
+            <div class="btn_wrap grid g2">
+                <button id="close-modal" class="btn ty02">취소</button>
+                <button id="save_modal" onclick="changeGoodsInfo()" class="btn ty01">확인</button>
+            </div>
+        </div>
+{#        <h1 id="modal_title">Modal</h1>#}
+{#        <inputtype="text" placeholder="입력">#}
+{#        <div class="close-modal">#}
+{#            <button id="close-modal">취소</button>#}
+{#            <button id="save_modal" onclick="changeGoodsInfo()">저장</button>#}
+{#        </div>#}
+    </div>
+</div>
+{##}
+
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script src="{% static 'assets/js/common.js' %}"></script>
+<script type="text/javascript">
+    const staticPath = '{% static "assets/img/" %}';
+    document
+        .getElementById("showButton")
+        .addEventListener("click", function () {
+            var div = document.getElementById("select");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+                document.getElementById("showButton").classList.add("toggle");
+            } else {
+                div.style.display = "none";
+                document.getElementById("showButton").classList.remove("toggle");
+            }
+        });
+
+    // 리뷰 필터
+    document
+        .getElementById("showButton2")
+        .addEventListener("click", function () {
+            var div = document.getElementById("select2");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+                document.getElementById("showButton").classList.add("toggle");
+            } else {
+                div.style.display = "none";
+                document.getElementById("showButton").classList.remove("toggle");
+            }
+        });
+</script>
+<script>
+
+</script>
+</body>
+</html>

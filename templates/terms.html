@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <title></title>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:locale" content="ko_KR"/>
+    <link rel="stylesheet" href="{% static 'assets/css/common.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'assets/css/more.css' %}" type="text/css"/>
+</head>
+
+<body>
+<div id="wrap" class="terms">
+    <div class="top_area">
+        <button class="back" onclick="history.back()">Back</button>
+        <div class="subject">이용약관</div>
+        <div></div>
+    </div>
+    <div class="content" id="content">
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+<script>
+    const inputFields = document.querySelectorAll(".form .ty01");
+    inputFields.forEach(function (inputElement) {
+        inputElement.addEventListener("input", function () {
+            if (inputElement.value !== "") {
+                inputElement.style.backgroundColor = "rgba(255,79,22,0.2)";
+                inputElement.style.border = "none";
+            } else {
+                inputElement.style.backgroundColor = "initial";
+                inputElement.style.border = "1px solid #dddce1";
+            }
+        });
+    });
+</script>
+<script>
+    window.onload = async function () {
+        const response = await fetch(`/store/terms/1`, {
+                headers: {
+                    'content-type': 'application/json',
+                },
+                method: 'GET',
+            });
+
+        let response_json = await response.json()
+        document.getElementById('content').innerText = response_json['content']
+    }
+</script>
+</body>
+</html>
